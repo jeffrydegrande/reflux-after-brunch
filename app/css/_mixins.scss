@@ -1,0 +1,126 @@
+@mixin text-shadow($options: 1px 1px 1px #FFF, $ie:true) {
+  text-shadow: $options;
+}
+
+@mixin box-shadow($options, $ie:true) {
+  box-shadow: $options;
+  -moz-box-shadow: $options;
+  -webkit-box-shadow: $options;
+}
+
+@mixin background-gradient($start, $end, $ie:true){
+  background-image: -ms-linear-gradient(top, $start, $end);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from($start), to($end));
+  background-image: -webkit-linear-gradient(top, $start, $end);
+  background-image: -o-linear-gradient(top, $start, $end);
+  background-image: -moz-linear-gradient(top, $start, $end);
+  background-image: linear-gradient(top, $start, $end);
+}
+
+@mixin border-radius($top-left:4px, $top-right:4px, $bottom-right:4px, $bottom-left:4px) {
+  border-radius: $top-left $top-right $bottom-right $bottom-left;
+  -moz-border-radius: $top-left $top-right $bottom-right $bottom-left;
+  -webkit-border-radius: $top-left $top-right $bottom-right $bottom-left;
+}
+
+@mixin clearfix {
+  overflow: hidden;
+}
+
+@mixin hbox {
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  -webkit-box-pack: start;
+
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  -moz-box-pack: start;
+}
+
+@mixin vbox() {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+}
+
+@mixin box-flex($s: 0) {
+  -webkit-box-flex: $s;
+  -moz-box-flex: $s;
+  box-flex: $s;
+}
+
+@mixin box {
+  background: white;
+  border: 1px solid #d9d9d9;
+  @include clearfix;
+  @include border-radius(6px, 6px, 6px, 6px);
+}
+
+
+@mixin prefix($map, $vendors: webkit moz ms o) {
+  @each $prop, $value in $map {
+    @if $vendors {
+      @each $vendor in $vendors {
+        #{"-" + $vendor + "-" + $prop}: #{$value};
+      }
+    }
+    // Dump regular property anyway
+    #{$prop}: #{$value};
+  }
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  } 
+}
+
+@include keyframes(passing-through) {
+  
+  0% {
+    opacity: 0;
+    @include prefix((transform: translateY(40px)));
+  }
+
+  30%, 70% {
+    opacity: 1;
+    @include prefix((transform: translateY(0px)));
+  }
+
+  100% {
+    opacity: 0;
+    @include prefix((transform: translateY(-40px)));
+  }
+}
+
+
+@include keyframes(slide-in) {
+  
+  0% {
+    opacity: 0;
+    @include prefix((transform: translateY(40px)));
+  }
+
+  30% {
+    opacity: 1;
+    @include prefix((transform: translateY(0px)));
+  }
+}
+
+@include keyframes(pulse) {
+  0% { @include prefix((transform: scale(1))); }
+  10% { @include prefix((transform: scale(1.1))); }
+  20% { @include prefix((transform: scale(1))); }
+}

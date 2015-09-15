@@ -1,0 +1,25 @@
+{
+  "name": "brunch-skeleton-jeffrydegrande",
+  "version": "0.0.1",
+  "dependencies": {
+    "font-awesome": "latest",
+    "jquery": "latest",
+    "react": "latest",
+    "react-bootstrap": "~0.25.1",
+    "underscore": "latest",
+    "flux": "latest",
+    "eventEmitter": "latest"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+ "overrides": {
+	"react": {
+		"main": "react-with-addons.js"
+	}
+ }
+}
